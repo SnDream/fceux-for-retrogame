@@ -168,7 +168,11 @@ int InitVideo(FCEUGI *gi) {
 	// initialize dingoo video mode
 	if (!s_VideoModeSet) {
 		int w, h;
+#ifndef RG99
 		if (s_fullscreen == 1) {
+#else
+		if (0) {
+#endif
 			int aspect_ratio;
 #ifndef RETROFW
 			int videofilter;

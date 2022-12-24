@@ -127,7 +127,13 @@ Config * InitConfig() {
 	config->addOption("square2vol", "SDL.Sound.Square2Volume", 256);
 	config->addOption("noisevol", "SDL.Sound.NoiseVolume", 256);
 	config->addOption("pcmvol", "SDL.Sound.PCMVolume", 256);
-	config->addOption("soundrate", "SDL.Sound.Rate", 32000);
+	config->addOption("soundrate", "SDL.Sound.Rate",
+#ifndef RG99
+	32000
+#else
+	22050
+#endif
+	);
 	config->addOption("soundq", "SDL.Sound.Quality", 0);
 	config->addOption("soundrecord", "SDL.Sound.RecordFile", "");
 	config->addOption("soundbufsize", "SDL.Sound.BufSize", 128);
@@ -135,7 +141,13 @@ Config * InitConfig() {
 
 	config->addOption('g', "gamegenie", "SDL.GameGenie", 0);
 	config->addOption("pal", "SDL.PAL", 0);
-	config->addOption("frameskip", "SDL.Frameskip", 0);
+	config->addOption("frameskip", "SDL.Frameskip",
+#ifndef RG99
+	0
+#else
+	-1
+#endif
+	);
 	config->addOption("intFrameRate", "SDL.IntFrameRate", 0);
 	config->addOption("clipsides", "SDL.ClipSides", 0);
 	config->addOption("nospritelim", "SDL.DisableSpriteLimit", 1);

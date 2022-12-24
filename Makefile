@@ -252,13 +252,17 @@ ifeq ($(PERF),yes)
     OPTIMIZE =  -O3 -ggdb -flto
 else
     LDFLAGS = -s
-    OPTIMIZE =  -O3 -flto
+    OPTIMIZE = -flto
 endif
 endif
 ifeq ($(DEVICE),retrofw)
-    OPTIMIZE += -mips32
+    OPTIMIZE += -O3 -mips32
 else ifeq ($(DEVICE),lepus)
-    OPTIMIZE += -mips32
+    OPTIMIZE += -O3 -mips32
+else ifeq ($(DEVICE),rg99)
+	OPTIMIZE += -Ofast -mips32 -mno-check-zero-division -fno-PIC -mno-fp-exceptions \
+          -mframe-header-opt -ffast-math -fsingle-precision-constant -fno-stack-protector \
+          -fomit-frame-pointer -falign-functions=1 -falign-jumps=1 -falign-loops=1 -fno-caller-saves
 else
     OPTIMIZE += -mips32r2
 endif
@@ -288,6 +292,8 @@ ifeq ($(DEVICE),retrofw)
 CFLAGS += -DRETROFW
 else ifeq ($(DEVICE),lepus)
 CFLAGS += -DLEPUS
+else ifeq ($(DEVICE),rg99)
+CFLAGS += -DRG99 -DOD2014
 else ifeq ($(ODVERSION),2014)
 CFLAGS += -DOD2014
 endif
